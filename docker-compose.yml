@@ -1,0 +1,51 @@
+services:
+  app:
+    build: .
+    container_name: my-app-api
+    image: my-app-api
+    ports:
+      - '4000:4000'
+      - '9229:9229'
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - localstack
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ["yarn", "start:dev"]
+
+  db:
+    image: postgres:15
+    container_name: my-app-postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  localstack:
+    image: localstack/localstack:3.8
+    container_name: my-app-localstack
+    ports:
+      - '4566:4566'
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    volumes:
+      - localstack_data:/var/lib/localstack
+      - ./scripts:/etc/localstack/init/ready.d
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  postgres_data:
+  localstack_data:

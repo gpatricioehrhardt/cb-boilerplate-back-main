@@ -1,0 +1,10 @@
+{
+    "extends": ["config:base"],
+    "packageRules": [
+      {
+        "matchPaths": ["packages/**"],
+        "groupName": "Monorepo dependencies"
+      }
+    ]
+  }
+  

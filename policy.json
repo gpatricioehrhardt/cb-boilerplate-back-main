@@ -1,0 +1,43 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "FullAccess",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::533267217155:root",
+                    "arn:aws:iam::730335567679:root",
+                    "arn:aws:iam::058264232281:root",
+                    "arn:aws:iam::891377034182:root",
+                    "arn:aws:iam::654654578857:root",
+                    "arn:aws:iam::637423273409:root"
+                ]
+            },
+            "Action": "ecr:*"
+        },
+        {
+            "Sid": "lambda",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::533267217155:root",
+                    "arn:aws:iam::730335567679:root",
+                    "arn:aws:iam::058264232281:root",
+                    "arn:aws:iam::891377034182:root",
+                    "arn:aws:iam::654654578857:root",
+                    "arn:aws:iam::637423273409:root"
+                ],
+                "Service": "lambda.amazonaws.com"
+            },
+            "Action": [
+                "ecr:BatchGetImage",
+                "ecr:DescribeImages",
+                "ecr:DescribeRepositories",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:ListImages",
+                "ecr:PutImage"
+            ]
+        }
+    ]
+}
